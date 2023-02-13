@@ -31,7 +31,7 @@ export const CarritoPage = () => {
     useEffect(()=>{
         getProducts();
         getPrecios();
-    },[])
+    },[carrito])
 
 
 
