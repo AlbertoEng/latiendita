@@ -16,14 +16,10 @@ export const Home = () => {
         const lista = await axios.get('http://localhost:3001/api/productos')
         setProductos(lista.data);
     }
-    
 
     useEffect(()=>{
         getProducts();
     },[])
-
-
-
 
     return (
         <div className='home'>

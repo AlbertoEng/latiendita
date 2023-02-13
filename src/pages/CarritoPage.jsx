@@ -26,8 +26,7 @@ export const CarritoPage = () => {
         },0)
         setSubtotal(res);
     }
-    
-   console.log(subtotal)
+
 
     useEffect(()=>{
         getProducts();

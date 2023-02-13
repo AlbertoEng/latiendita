@@ -27,7 +27,6 @@ export const Producto = ({ p }) => {
 
     const handleIncrement = ()=>{
         setCantidad(cantidad + 1)
-    
     }
     const handleDecrement = ()=>{
         if( cantidad == 0 ){
@@ -51,6 +50,15 @@ export const Producto = ({ p }) => {
     }
 
     const handleComprar = ()=>{
+        if(cantidad == 0){
+            agregarAlCarrito({
+                id: p._id,
+                cantidad: 1,
+                title: p.title,
+                imagen: p.imagen,
+                precio: p.precio
+            })
+        }
         navigate('/carrito')
     }
 

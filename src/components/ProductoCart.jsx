@@ -14,7 +14,7 @@ export const ProductoCart = ({ p }) => {
     useEffect(()=>{
         if(cantidad > 0){
             agregarAlCarrito({
-                id: p._id,
+                id: p.id,
                 cantidad: cantidad,
                 title: p.title,
                 imagen: p.imagen,
@@ -57,14 +57,15 @@ export const ProductoCart = ({ p }) => {
         return navigate(`/${id}`)
     }
 
+
     return (
         <>
             <div  className="product-cart">
                 <div className="d-flex">
-                    <div onClick={( e )=>handleDetailProduct(e,p._id)}  className='img-product-cart'>
+                    <div onClick={( e )=>handleDetailProduct(e,p.id)}  className='img-product-cart'>
                         <img src={`${p.imagen}`} alt="" />
                     </div>
-                    <div onClick={( e )=>handleDetailProduct(e,p._id)} >
+                    <div onClick={( e )=>handleDetailProduct(e,p.id)} >
                         <h4 className='px-2 product-cart-title'>{p.title}</h4>
                     </div>
                 </div>
