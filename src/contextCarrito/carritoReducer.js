@@ -4,26 +4,24 @@ export const carritoReducer = ( state = [], action)=>{
 
         case '[carrito] agregar':
             return [...state, action.payload];
+
+        case '[carrito] quitar':
+            return state.filter(( itemCarrito)=>{
+                return itemCarrito._id !== action.payload._id
+            })
+            
         case '[carrito] actualizar':
-            return state.map(( item )=>{
-                if(item.id == action.payload.id){
-                    const productoActualizado = {
-                        id: item.id,
-                        cantidad: action.payload.cantidad,
-                        title: action.payload.title,
-                        imagen: action.payload.imagen,
-                        precio: action.payload.precio
+            return state.map(( itemCarrito )=>{
+                if(itemCarrito._id === action.payload._id){
+                    const nuevoProduct = {
+                        ...itemCarrito,
+                        cantidad: action.payload.cantidad
                     }
-                    return productoActualizado;
+                    return nuevoProduct;
                 }
-                return item;
+                return itemCarrito;
             });
 
-        case '[carrito] eliminar':
-            console.log(action.payload)
-            return state.filter(( item )=>{
-                return item.id !== action.payload._id
-            })
 
         default: 
             return state;

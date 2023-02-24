@@ -8,58 +8,85 @@ import {carritoReducer} from './carritoReducer'
     // cantidad: 0
 const cargarCarrito = () => JSON.parse( localStorage.getItem('carrito') )  || [];
 
+
 export const CarritoProvider = ({children}) => {
 
     const [ carrito, dispatchCarrito ] = useReducer(carritoReducer,[], cargarCarrito );
-    
 
-    // retorna true or flase if exist.
-    const existeProductoEnCarrito = ( p )=>{
-        const productoExist = carrito.find(( itemProduct )=>{
-            return itemProduct.id === p.id
-        })  
-        return productoExist? true: false;
-    }
-
-    const agregarAlCarrito = ( producto )=>{
-        
-        if(existeProductoEnCarrito( producto )){
-            // si existe en carrito actualizar la cantidad
-            // if cantidad != 0 actualizar
-            if( producto.cantidad > 0){
-                const action = {
-                    type: '[carrito] actualizar',
-                    payload: producto
-                }
-                dispatchCarrito(action)
-            }
-
-            //if cantidad == 0 eliminar el producto
-        }else{
-            // si no existe en carrito agregar uno nuevo
-            const action = {
-                type: '[carrito] agregar',
-                payload: producto
-            }
-            dispatchCarrito(action)
-        }
-    }
-
-    const quitarDelCarrito = ( producto )=>{
-        const action = {
-            type: '[carrito] eliminar',
-            payload: producto
-        }
-        dispatchCarrito(action)
-        
-    }
 
     useEffect(()=>{
-        localStorage.setItem('carrito', JSON.stringify(carrito))
-    },[carrito])
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }, [carrito])
+
+    // revisar que exista producto. true or false
+    const existeProducto = (product)=>{
+        const result = carrito.find(( itemCarrito)=>{
+            return itemCarrito._id === product._id
+        })
+        return result ? true: false;
+    }   
+
+    // verificar que la cantidad del producto sea >= 1
+    const productoIgualAUno = ( product )=>{
+        if(product.cantidad == 0){
+            return true;
+        }
+        return false;
+    }
+    
+
+    //agregarlo al carro
+    const aumentarProductosCarrito = ( product )=>{
+        if(existeProducto(product)){
+            // aumentar cantidad
+            const action = {
+                type: '[carrito] actualizar',
+                payload: product
+            }
+            dispatchCarrito(action);
+        }else{
+            // agregarlo al carrito
+            const action = {
+                type: '[carrito] agregar',
+                payload: product
+            }
+            dispatchCarrito(action);
+        }
+        
+    }
+
+    const disminuirProductosCarrito = ( product )=>{
+
+        // if cantidad = 1 hay que borrar el producto
+        if(productoIgualAUno( product )){
+            const action = {
+                type: '[carrito] quitar',
+                payload: product
+            }
+            dispatchCarrito(action)
+        }else{
+            // si es mayor solo actualizar la cantidad
+            const action = {
+                type: '[carrito] actualizar',
+                payload: product
+            }
+            dispatchCarrito(action);
+        }
+    }
+
+    const quitarProductoCarrito = ( product )=>{
+        const action = {
+            type: '[carrito] quitar',
+            payload: product
+        }
+        dispatchCarrito(action)
+    }
+
+    
+
 
     return (
-        <CarritoContext.Provider value={{carrito, agregarAlCarrito, quitarDelCarrito}}>
+        <CarritoContext.Provider value={{carrito, aumentarProductosCarrito, disminuirProductosCarrito, quitarProductoCarrito}}>
             {children}
         </CarritoContext.Provider>
     )
