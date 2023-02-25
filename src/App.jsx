@@ -4,6 +4,7 @@ import { Home } from './pages/Home'
 import { CarritoPage } from './pages/CarritoPage'
 import { ItemDetailContainer } from './pages/ItemDetailContainer'
 import { ItemListContainer } from './pages/ItemListContainer'
+import { PagoPage } from './pages/PagoPage'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/electronica' element={<ElectronicaPage/>} /> */}
         <Route path='/categories/:categoriesId' element={<ItemListContainer />} />
         <Route path='/carrito' element={<CarritoPage />} />
+        <Route path='/carrito/pagar' element={<PagoPage />} />
         <Route path='/:productoId' element={<ItemDetailContainer/>}/>
         <Route path='/*' element={<h1>Pagina no encontrada</h1>} />
       </Routes>

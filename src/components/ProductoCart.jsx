@@ -5,11 +5,12 @@ import { ItemCount } from "./ItemCount";
 
 export const ProductoCart = ({ p }) => {
 
-
-    const [cantidad, setCantidad] = useState(p.cantidad);
-    const navigate = useNavigate();
     const carritoContext = useContext(CarritoContext)
     const { carrito, aumentarProductosCarrito, disminuirProductosCarrito, quitarProductoCarrito} = carritoContext;
+    const [cantidad, setCantidad] = useState(0);
+    const navigate = useNavigate();
+
+    
 
 
     const handleIncrement = ()=>{
@@ -40,7 +41,11 @@ export const ProductoCart = ({ p }) => {
         const getCantidadCarrito = carrito.find(( itemCarrito )=>{
             return itemCarrito._id === p._id;
         })
-        setCantidad(getCantidadCarrito?.cantidad);
+        if(getCantidadCarrito){
+            console.log(getCantidadCarrito._id, getCantidadCarrito.cantidad)
+            setCantidad( getCantidadCarrito.cantidad );
+        }
+        
     },[carrito])
 
 

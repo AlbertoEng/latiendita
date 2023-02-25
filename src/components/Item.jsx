@@ -47,8 +47,6 @@ export const Item = ({ p }) => {
         setCantidad( getCantidadCarrito?.cantidad || 0);
     }, [])
 
-
-
     return (
         <>
             <div  className="producto px-0 col-12 col-md-6 col-lg-4">

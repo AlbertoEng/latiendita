@@ -16,10 +16,12 @@ export const ItemList = () => {
         getProducts();
     },[])
 
+
+
     return (
         <div className='contenedor'>
             {
-                productos.length > 0? productos.map(( p ) => (
+                productos.length > 0 ? productos.map(( p ) => (
                     <Item key={p._id}  p={p}/>
                 ))
                 : <div className="spinner-border spinner" role="status">
